@@ -1,0 +1,14 @@
+.form-element {
+    margin-bottom: 30px;
+
+    &.no-margin {
+        margin-bottom: 0;
+    }
+
+    .label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: rgba(#000, 0.5);
+    }
+}
