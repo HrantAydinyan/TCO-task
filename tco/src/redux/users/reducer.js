@@ -10,7 +10,7 @@ const initialState = {
     createUserLoading: false,
     deleteUserLoading: false,
     editUserLoading: false,
-    getSingleUserLoading: false,
+    getSingleUserLoading: true,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -89,7 +89,7 @@ const userReducer = (state = initialState, action) => {
         case TYPES.GET_SINGLE_USER_REQUEST:
             return {
                 ...state,
-                getSingleUserLoading: false,
+                getSingleUserLoading: true,
             };
         case TYPES.GET_SINGLE_USER_SUCCESS:
             return {
@@ -101,6 +101,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 getSingleUserLoading: false,
+            };
+        case TYPES.CLEAR_USERS:
+            return {
+                ...state,
+                users: [],
             };
         case TYPES.CLEAR_SINGLE_USER:
             return {

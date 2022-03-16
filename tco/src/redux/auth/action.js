@@ -2,9 +2,7 @@ import * as TYPES from './types';
 import AuthService from './services';
 
 export const signup = (data) => (dispatch) => {
-    return AuthService.signup(data).then((res) => {
-        console.log(res);
-    });
+    return AuthService.signup(data);
 };
 
 export const signin = (data) => (dispatch) => {
@@ -20,7 +18,6 @@ export const signin = (data) => (dispatch) => {
 
                 return response.data;
             }
-            console.log(response);
         },
         (error) => {
             dispatch({

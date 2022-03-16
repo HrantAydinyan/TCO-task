@@ -2,6 +2,7 @@ import * as TYPES from './types';
 import UsersService from './services';
 
 export const clearUser = () => ({ type: TYPES.CLEAR_SINGLE_USER });
+export const clearUsers = () => ({ type: TYPES.CLEAR_USERS });
 
 export const getUsers = (search) => (dispatch) => {
     dispatch({ type: TYPES.GET_USERS_REQUEST });

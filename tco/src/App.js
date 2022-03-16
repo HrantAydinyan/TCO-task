@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import Auth from 'components/elements/Auth';
 import { useSelector } from 'react-redux';
 import Header from 'components/elements/Header';
+import NotFound from 'pages/NotFound';
 
 function App() {
     const { isLoggedIn } = useSelector((state) => state.auth);
@@ -37,7 +38,15 @@ function App() {
                                   key={i}
                               />
                           ))}
-                    <Route path="*" element={<div>404 NOT FOUND</div>} />
+                    <Route
+                        path="*"
+                        element={
+                            <>
+                                <Header />
+                                <NotFound />
+                            </>
+                        }
+                    />
                 </Routes>
             </main>
         </ThemeProvider>

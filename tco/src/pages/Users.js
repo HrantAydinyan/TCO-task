@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getUsers } from 'redux/users/action';
+import { getUsers, clearUsers } from 'redux/users/action';
 import {
     Box,
     Button,
@@ -21,45 +21,14 @@ import { Delete, Edit } from '@material-ui/icons';
 import CreateUserModal from 'components/shared/modals/CreateUser';
 import EditUserModal from 'components/shared/modals/EditUser';
 import DeleteModal from 'components/shared/modals/DeleteModal';
-
-const headers = [
-    {
-        label: 'Index',
-        field: 'index',
-        // sortable: true,
-        width: 3,
-    },
-    {
-        label: 'Avatar',
-        field: 'walleavatar',
-        sortable: true,
-        width: 3,
-    },
-    {
-        label: 'Full Name',
-        field: 'full_name',
-        sortable: true,
-        width: 3,
-    },
-    {
-        label: 'Email',
-        field: 'email',
-        sortable: true,
-        width: 3,
-    },
-    {
-        label: 'Action',
-        field: 'action',
-        sortable: false,
-        width: 3,
-    },
-];
+import Preloader from 'components/shared/preloader';
+import { TABLE_HEADER } from 'configs';
 
 const Users = () => {
     const dispatch = useDispatch();
     const history = createBrowserHistory();
     const navigate = useNavigate();
-    const { users, total_pages, page } = useSelector((state) => state.users);
+    const { users, total_pages, page, getUsersLoading } = useSelector((state) => state.users);
     const [openCreateModal, setOpenCreateModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -77,6 +46,10 @@ const Users = () => {
     useEffect(() => {
         dispatch(getUsers(pageNumber));
     }, [dispatch, pageNumber]);
+
+    useEffect(() => {
+        return () => dispatch(clearUsers());
+    }, [dispatch]);
 
     const onOpenCreateModal = () => {
         setOpenCreateModal(true);
@@ -119,6 +92,11 @@ const Users = () => {
                             Create User
                         </Button>
                     </Box>
+                    {getUsersLoading && users?.length === 0 && (
+                        <Box display="flex" justifyContent="center">
+                            <Preloader style={{ width: '80px' }} />
+                        </Box>
+                    )}
                     <TableContainer component={Box} position="relative">
                         <Table
                             sx={{ minWidth: 650 }}
@@ -128,7 +106,7 @@ const Users = () => {
                         >
                             <TableHead>
                                 <TableRow>
-                                    {headers.map((head, idx) => (
+                                    {TABLE_HEADER.map((head, idx) => (
                                         <TableCell align="left" key={head.field + idx}>
                                             <Box
                                                 display="flex"
