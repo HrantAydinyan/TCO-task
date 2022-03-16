@@ -2,6 +2,7 @@ import * as TYPES from './types';
 
 const initialState = {
     users: [],
+    singleUser: null,
     total: 0,
     total_pages: 0,
     page: 0,
@@ -9,6 +10,7 @@ const initialState = {
     createUserLoading: false,
     deleteUserLoading: false,
     editUserLoading: false,
+    getSingleUserLoading: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -83,6 +85,27 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 deleteUserLoading: false,
+            };
+        case TYPES.GET_SINGLE_USER_REQUEST:
+            return {
+                ...state,
+                getSingleUserLoading: false,
+            };
+        case TYPES.GET_SINGLE_USER_SUCCESS:
+            return {
+                ...state,
+                singleUser: payload.data,
+                getSingleUserLoading: false,
+            };
+        case TYPES.GET_SINGLE_USER_FAIL:
+            return {
+                ...state,
+                getSingleUserLoading: false,
+            };
+        case TYPES.CLEAR_SINGLE_USER:
+            return {
+                ...state,
+                singleUser: null,
             };
         default:
             return {

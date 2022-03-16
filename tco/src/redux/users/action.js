@@ -1,6 +1,8 @@
 import * as TYPES from './types';
 import UsersService from './services';
 
+export const clearUser = () => ({ type: TYPES.CLEAR_SINGLE_USER });
+
 export const getUsers = (search) => (dispatch) => {
     dispatch({ type: TYPES.GET_USERS_REQUEST });
     return UsersService.getUsers(search)
@@ -56,7 +58,6 @@ export const deleteUser = (userId) => (dispatch) => {
     dispatch({ type: TYPES.DELETE_USER_REQUEST });
     return UsersService.deleteUser(userId)
         .then((response) => {
-            console.log(response);
             if (response.status === 204) {
                 dispatch({ type: TYPES.DELETE_USER_SUCCESS, payload: { id: userId } });
                 return response;
@@ -67,6 +68,27 @@ export const deleteUser = (userId) => (dispatch) => {
         .catch((err) => {
             console.log(err);
             dispatch({ type: TYPES.DELETE_USER_FAIL });
+            return null;
+        });
+};
+
+export const getSingleUser = (userId) => (dispatch) => {
+    dispatch({ type: TYPES.GET_SINGLE_USER_REQUEST });
+    return UsersService.getSingleUser(userId)
+        .then((response) => {
+            if (response.status === 200) {
+                dispatch({
+                    type: TYPES.GET_SINGLE_USER_SUCCESS,
+                    payload: { data: response?.data?.data },
+                });
+                return response;
+            }
+            dispatch({ type: TYPES.GET_SINGLE_USER_FAIL });
+            return null;
+        })
+        .catch((err) => {
+            console.log(err);
+            dispatch({ type: TYPES.GET_SINGLE_USER_FAIL });
             return null;
         });
 };

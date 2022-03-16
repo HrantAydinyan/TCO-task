@@ -7,11 +7,14 @@ const editUser = (userId, data) => axios.patch(`${API_CONFIG.users}/${userId}`, 
 
 const deleteUser = (userId) => axios.delete(`${API_CONFIG.users}/${userId}`);
 
+const getSingleUser = (userId) => axios.get(`${API_CONFIG.users}/${userId}`);
+
 const data = {
     getUsers,
     createUser,
     editUser,
     deleteUser,
+    getSingleUser,
 };
 
 export default data;

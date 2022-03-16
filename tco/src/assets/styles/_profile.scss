@@ -1,0 +1,26 @@
+.profile{
+
+    &-content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top:50px;
+    }
+
+    &-avatar{
+        width:200px !important;
+        height:200px !important;
+    }
+    &-info{
+        padding-top: 20px;
+        span{
+            font-weight: 600;
+        }
+    }
+    &-card{
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 6px 12px #000;
+        padding: 70px;
+    }
+}

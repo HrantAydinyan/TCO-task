@@ -1,45 +1,25 @@
 import * as ROUTES from './routes.js';
-import { SignIn, SignUp, Users } from 'pages';
+import { SignIn, SignUp, Users, Profile } from 'pages';
 
 export const PROTECTED_ROUTE_CONFIG = [
     {
-        title: 'Profile Settings',
+        title: 'Single Users',
+        path: ROUTES.SINGLE_USER,
+        exact: true,
+        component: Profile,
+    },
+    {
+        title: 'Users',
         path: ROUTES.USERS,
         exact: true,
         component: Users,
     },
-    // {
-    //     title: 'Profile Activity',
-    //     path: ROUTES.ACTIVITY,
-    //     exact: true,
-    //     isPublic: false,
-    //     hasSearch: false,
-    //     component: ProfileActivity,
-    // },
-    // {
-    //     title: 'Upload Asset',
-    //     path: ROUTES.UPLOADASSET,
-    //     exact: true,
-    //     isPublic: true,
-    //     hasSearch: false,
-    //     component: UploadAsset,
-    // },
-    // {
-    //     title: 'Edit Asset',
-    //     path: ROUTES.EDIT_ASSET,
-    //     exact: true,
-    //     isPublic: false,
-    //     hasSearch: false,
-    //     component: AssetEdit,
-    // },
-    // {
-    //     title: 'Make an offer',
-    //     path: ROUTES.MAKE_AN_OFFER,
-    //     exact: true,
-    //     isPublic: false,
-    //     hasSearch: false,
-    //     component: MakeAnOffer,
-    // },
+    {
+        title: 'Home',
+        path: ROUTES.HOME,
+        exact: true,
+        component: Users,
+    },
 ];
 export const PUBLIC_ROUTE_CONFIG = [
     {
