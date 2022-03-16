@@ -1,15 +1,13 @@
 import * as ROUTES from './routes.js';
-import { SignIn, SignUp } from 'pages';
+import { SignIn, SignUp, Users } from 'pages';
 
 export const PROTECTED_ROUTE_CONFIG = [
-    // {
-    //     title: 'Profile Settings',
-    //     path: ROUTES.SETTINGS,
-    //     exact: true,
-    //     isPublic: false,
-    //     hasSearch: false,
-    //     component: ProfileSettings,
-    // },
+    {
+        title: 'Profile Settings',
+        path: ROUTES.USERS,
+        exact: true,
+        component: Users,
+    },
     // {
     //     title: 'Profile Activity',
     //     path: ROUTES.ACTIVITY,

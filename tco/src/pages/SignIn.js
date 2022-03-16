@@ -1,31 +1,34 @@
-import React from 'react';
-// import Styles from "./styles.module.css";
-import { NavLink } from 'react-router-dom';
-import { Box, Button } from '@material-ui/core';
-
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Button, InputAdornment, IconButton, Box } from '@material-ui/core';
 import { useFormik, FormikProvider } from 'formik';
-import * as Yup from 'yup';
 import Field from 'components/shared/fields/Field';
+import { VisibilityOutlined } from '@material-ui/icons';
+import { signin } from 'redux/auth/action';
+import { useDispatch } from 'react-redux';
+import { signinSchema } from 'validations.js';
 
 const SignIn = () => {
-    const signinSchema = Yup.object().shape({
-        email: Yup.string().email('Invalid email').required('Email is required'),
-        password: Yup.string()
-            .min(6, 'Too Short!')
-            .max(20, 'Too Long!')
-            .required('Password is required'),
-    });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
         },
         validationSchema: signinSchema,
-        onSubmit: () => {
-            //   props.login(e);
-            //   formik.resetForm();
+        onSubmit: (values) => {
+            dispatch(signin(values)).then(() => {
+                navigate('/users');
+            });
         },
     });
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <Box className="container">
@@ -73,9 +76,29 @@ const SignIn = () => {
                                         />
                                         <Field
                                             field="input"
-                                            type="password"
+                                            type={showPassword ? 'text' : 'password'}
                                             label="Password"
                                             name="password"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="Toggle password visibility"
+                                                            edge="end"
+                                                            onClick={handleClickShowPassword}
+                                                        >
+                                                            <VisibilityOutlined
+                                                                style={{ fontSize: 24 }}
+                                                                color={
+                                                                    showPassword
+                                                                        ? 'primary'
+                                                                        : 'inherit'
+                                                                }
+                                                            />
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                             className="no-margin"
                                             {...formik.getFieldProps('password')}
                                         />
